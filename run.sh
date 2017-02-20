@@ -2,8 +2,10 @@
 
 THRESHOLD_WARN=${WERCKER_GOLINT_THRESHOLD_WARN-5}
 THRESHOLD_FAIL=${WERCKER_GOLINT_THRESHOLD_FAIL-10}
-GOMETALINTER=`which gometalinter`
 
+go get -v -u github.com/alecthomas/gometalinter
+GOMETALINTER=`which gometalinter`
+${GOMETALINTER} --install --update
 
 LINTLINES=$(${GOMETALINTER} ./... | tee gometalinter_results.txt | wc -l | tr -d " ")
 

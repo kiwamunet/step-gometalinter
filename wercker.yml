@@ -5,12 +5,6 @@ build:
         - shellcheck
         - setup-go-workspace@1.0.4
         - script:
-            name: fetch gometalinter
-            code: go get -u github.com/alecthomas/gometalinter
-        ~ script:
-            name: install gometalinter
-            code: gometalinter --install --update
-        - script:
             name: prune
             code: |
                 rm -rf $WERCKER_ROOT/.git
