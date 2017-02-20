@@ -1,5 +1,5 @@
 name: gometalinter
-version: 1.0.1
+version: 1.0.0
 description: Step to run gometalinter
 keywords:
   - golang
