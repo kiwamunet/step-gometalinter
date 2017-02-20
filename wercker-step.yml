@@ -1,0 +1,26 @@
+name: gometalinter
+version: 1.0.0
+description: Step to run gometalinter
+keywords:
+  - golang
+  - gometalinter
+  - dupl
+  - lll
+  - structcheck
+  - errcheck
+  - goimports
+  - aligncheck
+  - gosimple
+  - ineffassign
+  - interfacer
+  - varcheck
+  - staticcheck
+  - deadcode
+  - gas
+  - goconst
+  - gocyclo
+  - golint
+  - gotype
+  - misspell
+  - unconvert
+  - unused
