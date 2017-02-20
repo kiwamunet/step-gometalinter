@@ -7,7 +7,7 @@ go get -v -u github.com/alecthomas/gometalinter
 gometalinter --install --update
 
 if [ -n "$WERCKER_GOMETALINTER_OPTIONS" ]; then
-  LINTLINES=$(${GOMETALINTER} $WERCKER_GOMETALINTER_OPTIONS ./... | tee gometalinter_results.txt | wc -l | tr -d " ")
+  LINTLINES=$(${GOMETALINTER} ${WERCKER_GOMETALINTER_OPTIONS} ./... | tee gometalinter_results.txt | wc -l | tr -d " ")
 else
   LINTLINES=$(${GOMETALINTER} ./... | tee gometalinter_results.txt | wc -l | tr -d " ")
 fi
