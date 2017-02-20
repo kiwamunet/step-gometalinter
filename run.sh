@@ -8,7 +8,7 @@ gometalinter --install --update
 
 if [ -n "$WERCKER_GOMETALINTER_OPTIONS" ]; then
   echo "gometalinter ${WERCKER_GOMETALINTER_OPTIONS} ./..."
-  LINTLINES=$(gometalinter "${WERCKER_GOMETALINTER_OPTIONS}" ./... | tee gometalinter_results.txt | wc -l | tr -d " ")
+  LINTLINES=$(gometalinter ${WERCKER_GOMETALINTER_OPTIONS} ./... | tee gometalinter_results.txt | wc -l | tr -d " ")
 else
   echo "gometalinter ./..."
   LINTLINES=$(gometalinter ./... | tee gometalinter_results.txt | wc -l | tr -d " ")

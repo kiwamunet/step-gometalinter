@@ -14,12 +14,15 @@ build:
         - gometalinter
 ```
 
-Using an exclude filter:
+Using an options:
 
 ```yaml
 build:
     steps:
         - gometalinter:
+        	options: "--deadline=5s --disable=dupl"
+        	threshold-warn: 1000
+        	threshold-fail: 1000
 ```
 
 # License
@@ -27,6 +30,10 @@ build:
 The MIT License (MIT)
 
 # Changelog
+
+## 2.0.0
+
+- Bug fix
 
 ## 1.0.0
 

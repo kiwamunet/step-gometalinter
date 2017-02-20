@@ -1,9 +1,7 @@
 box: wercker/golang
-
 build:
     steps:
-        - shellcheck
-        - setup-go-workspace@1.0.4
+        - setup-go-workspace
         - script:
             name: prune
             code: |
