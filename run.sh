@@ -7,7 +7,10 @@ GOMETALINTER=`which gometalinter`
 
 LINTLINES=$(${GOMETALINTER} ./... | tee gometalinter_results.txt | wc -l | tr -d " ")
 
+if [ -n "$WERCKER_GOMETALINTER_EXCLUDE" ]; then
+  LINTLINES=$(${GOMETALINTER} ./... | grep -vE "$WERCKER_GOMETALINTER_EXCLUDE" | tee gometalinter_results.txt | wc -l | tr -d " ")
+else
+  LINTLINES=$(${GOMETALINTER} ./... | tee gometalinter_results.txt | wc -l | tr -d " ")
+fi
+
 cat gometalinter_results.txt
-if [ "$LINTLINES" -ge "${THRESHOLD_FAIL}" ]; then echo "Time to tidy up: $LINTLINES lint warnings." > "$WERCKER_REPORT_MESSAGE_FILE"; fail "Time to tidy up."; fi
-if [ "$LINTLINES" -ge "${THRESHOLD_WARN}" ]; then echo "You should be tidying soon: $LINTLINES lint warnings." > "$WERCKER_REPORT_MESSAGE_FILE"; warn "You should be tidying soon."; fi
-if [ "$LINTLINES" -gt 0 ]; then echo "You are fairly tidy: $LINTLINES lint warnings." > "$WERCKER_REPORT_MESSAGE_FILE"; fi
