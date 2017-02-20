@@ -1,15 +1,13 @@
 #!/bin/sh
 
-THRESHOLD_WARN=${WERCKER_GOLINT_THRESHOLD_WARN-5}
-THRESHOLD_FAIL=${WERCKER_GOLINT_THRESHOLD_FAIL-10}
+THRESHOLD_WARN=${WERCKER_GOMETALINTER_THRESHOLD_WARN-5}
+THRESHOLD_FAIL=${WERCKER_GOMETALINTER_THRESHOLD_FAIL-10}
 
 go get -v -u github.com/alecthomas/gometalinter
 gometalinter --install --update
 
-LINTLINES=$(${GOMETALINTER} ./... | tee gometalinter_results.txt | wc -l | tr -d " ")
-
-if [ -n "$WERCKER_GOMETALINTER_EXCLUDE" ]; then
-  LINTLINES=$(${GOMETALINTER} ./... | grep -vE "$WERCKER_GOMETALINTER_EXCLUDE" | tee gometalinter_results.txt | wc -l | tr -d " ")
+if [ -n "$WERCKER_GOMETALINTER_OPTIONS" ]; then
+  LINTLINES=$(${GOMETALINTER} $WERCKER_GOMETALINTER_OPTIONS ./... | tee gometalinter_results.txt | wc -l | tr -d " ")
 else
   LINTLINES=$(${GOMETALINTER} ./... | tee gometalinter_results.txt | wc -l | tr -d " ")
 fi
