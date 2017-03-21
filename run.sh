@@ -2,17 +2,20 @@
 
 THRESHOLD_WARN=${WERCKER_GOMETALINTER_THRESHOLD_WARN-5}
 THRESHOLD_FAIL=${WERCKER_GOMETALINTER_THRESHOLD_FAIL-10}
+OPTIONS=$WERCKER_GOMETALINTER_OPTIONS
 
 go get -v -u github.com/alecthomas/gometalinter
 gometalinter --install --update
 
-if [ -n "$WERCKER_GOMETALINTER_OPTIONS" ]; then
-  echo "gometalinter ${WERCKER_GOMETALINTER_OPTIONS} ./..."
-  LINTLINES=$(gometalinter ${WERCKER_GOMETALINTER_OPTIONS} ./... | tee gometalinter_results.txt | wc -l | tr -d " ")
+
+
+echo "gometalinter ${WERCKER_GOMETALINTER_OPTIONS} ./..."
+if [ -n "$WERCKER_GOMETALINTER_EXCLUDE" ]; then
+LINTLINES=$(gometalinter ${WERCKER_GOMETALINTER_OPTIONS} ./... | grep -vE $WERCKER_GOMETALINTER_EXCLUDE | tee gometalinter_results.txt | wc -l | tr -d " ")
 else
-  echo "gometalinter ./..."
-  LINTLINES=$(gometalinter ./... | tee gometalinter_results.txt | wc -l | tr -d " ")
+LINTLINES=$(gometalinter ${WERCKER_GOMETALINTER_OPTIONS} ./... | tee gometalinter_results.txt | wc -l | tr -d " ")
 fi
+
 
 cat gometalinter_results.txt
 if [ "$LINTLINES" -ge "${THRESHOLD_FAIL}" ]; then echo "Time to tidy up: $LINTLINES gometalinter warnings." > "$WERCKER_REPORT_MESSAGE_FILE"; fail "Time to tidy up."; fi
