@@ -23,6 +23,7 @@ build:
         	options: "--deadline=5s --disable=dupl"
         	threshold-warn: 1000
         	threshold-fail: 1000
+        	exclude: "exclude.go"
 ```
 
 # License
@@ -30,6 +31,10 @@ build:
 The MIT License (MIT)
 
 # Changelog
+
+## 2.0.2
+
+- add exclude option
 
 ## 2.0.0
 
